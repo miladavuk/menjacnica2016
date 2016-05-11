@@ -20,9 +20,6 @@ public class GUIKontroler {
 	private static ObrisiKursGUI obrisiKurs;
 	private static MenjacnicaGUI menjacnica;
 	private static Menjacnica sistem;
-	private static Valuta valuta;
-	
-	
 	/**
 	 * Launch the application.
 	 */
@@ -101,7 +98,7 @@ public class GUIKontroler {
 		if (menjacnica.getTable().getSelectedRow() != -1) {
 			
 			MenjacnicaTableModel model = (MenjacnicaTableModel)(menjacnica.getTable().getModel());		
-			valuta = model.vratiValutu(menjacnica.getTable().getSelectedRow());
+			//valuta = model.vratiValutu(menjacnica.getTable().getSelectedRow());
 			obrisiKurs = new ObrisiKursGUI(menjacnica,model.vratiValutu(menjacnica.getTable().getSelectedRow()));
 			obrisiKurs.setVisible(true);
 			obrisiKurs.setLocationRelativeTo(null);
@@ -113,7 +110,7 @@ public class GUIKontroler {
 	public static void prikaziIzvrsiZamenuGUI() {
 		if (menjacnica.getTable().getSelectedRow() != -1) {
 			MenjacnicaTableModel model = (MenjacnicaTableModel)(menjacnica.getTable().getModel());
-			valuta = model.vratiValutu(menjacnica.getTable().getSelectedRow());
+			//valuta = model.vratiValutu(menjacnica.getTable().getSelectedRow());
 			izvrsiZamenu = new IzvrsiZamenuGUI(menjacnica,
 					model.vratiValutu(menjacnica.getTable().getSelectedRow()));
 			izvrsiZamenu.setVisible(true);
@@ -153,7 +150,8 @@ public class GUIKontroler {
 	}
 	public static void obrisiValutu() {
 		try{
-			sistem.obrisiValutu(valuta);
+			MenjacnicaTableModel model = (MenjacnicaTableModel)(menjacnica.getTable().getModel());
+			sistem.obrisiValutu(model.vratiValutu(menjacnica.getTable().getSelectedRow()));
 			
 			menjacnica.prikaziSveValute();
 			obrisiKurs.dispose();
@@ -164,26 +162,28 @@ public class GUIKontroler {
 	}
 	public static void prikaziValutu() {
 		// Prikaz podataka o valuti
-		
-		obrisiKurs.getTextFieldNaziv().setText(valuta.getNaziv());
-		obrisiKurs.getTextFieldSkraceniNaziv().setText(valuta.getSkraceniNaziv());
-		obrisiKurs.getTextFieldSifra().setText(""+valuta.getSifra());
-		obrisiKurs.getTextFieldProdajniKurs().setText(""+valuta.getProdajni());
-		obrisiKurs.getTextFieldKupovniKurs().setText(""+valuta.getKupovni());
-		obrisiKurs.getTextFieldSrednjiKurs().setText(""+valuta.getSrednji());				
+		MenjacnicaTableModel model = (MenjacnicaTableModel)(menjacnica.getTable().getModel());
+		obrisiKurs.getTextFieldNaziv().setText(model.vratiValutu(menjacnica.getTable().getSelectedRow()).getNaziv());
+		obrisiKurs.getTextFieldSkraceniNaziv().setText(model.vratiValutu(menjacnica.getTable().getSelectedRow()).getSkraceniNaziv());
+		obrisiKurs.getTextFieldSifra().setText(""+model.vratiValutu(menjacnica.getTable().getSelectedRow()).getSifra());
+		obrisiKurs.getTextFieldProdajniKurs().setText(""+model.vratiValutu(menjacnica.getTable().getSelectedRow()).getProdajni());
+		obrisiKurs.getTextFieldKupovniKurs().setText(""+model.vratiValutu(menjacnica.getTable().getSelectedRow()).getKupovni());
+		obrisiKurs.getTextFieldSrednjiKurs().setText(""+model.vratiValutu(menjacnica.getTable().getSelectedRow()).getSrednji());				
 	}
 	
 	public static void prikaziValutuIzvrsiZamenu(){
-		izvrsiZamenu.getTextFieldProdajniKurs().setText(""+valuta.getProdajni());
-		izvrsiZamenu.getTextFieldKupovniKurs().setText(""+valuta.getKupovni());
-		izvrsiZamenu.getTextFieldValuta().setText(valuta.getSkraceniNaziv());
+		MenjacnicaTableModel model = (MenjacnicaTableModel)(menjacnica.getTable().getModel());
+		izvrsiZamenu.getTextFieldProdajniKurs().setText(""+model.vratiValutu(menjacnica.getTable().getSelectedRow()).getProdajni());
+		izvrsiZamenu.getTextFieldKupovniKurs().setText(""+model.vratiValutu(menjacnica.getTable().getSelectedRow()).getKupovni());
+		izvrsiZamenu.getTextFieldValuta().setText(model.vratiValutu(menjacnica.getTable().getSelectedRow()).getSkraceniNaziv());
 	}
 	
 
 	public static void izvrsiZamenu(){
 		try{
+			MenjacnicaTableModel model = (MenjacnicaTableModel)(menjacnica.getTable().getModel());
 			double konacniIznos = 
-					sistem.izvrsiTransakciju(valuta,
+					sistem.izvrsiTransakciju(model.vratiValutu(menjacnica.getTable().getSelectedRow()),
 							izvrsiZamenu.getRdbtnProdaja().isSelected(), 
 							Double.parseDouble(izvrsiZamenu.getTextFieldIznos().getText()));
 		
