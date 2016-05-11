@@ -15,9 +15,10 @@ import sistemskeoperacije.SOSacuvajUFajl;
 import sistemskeoperacije.SOUcitajIzFajla;
 import sistemskeoperacije.SOVratiKursnuListu;
 
+
 public class Menjacnica implements MenjacnicaInterface{
 	
-	private LinkedList<Valuta> kursnaLista = new LinkedList<Valuta>();
+	public LinkedList<Valuta> kursnaLista = new LinkedList<Valuta>();
 
 	@Override
 	public void dodajValutu(Valuta valuta) {
