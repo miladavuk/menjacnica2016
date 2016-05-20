@@ -87,7 +87,7 @@ public class GUIKontroler {
 	
 	
 	public static void prikaziDodajKursGUI() {
-		dodajKurs = new DodajKursGUI(menjacnica);
+		dodajKurs = new DodajKursGUI();
 		dodajKurs.setVisible(true);
 		dodajKurs.setLocationRelativeTo(null);
 		
@@ -99,7 +99,7 @@ public class GUIKontroler {
 			
 			MenjacnicaTableModel model = (MenjacnicaTableModel)(menjacnica.getTable().getModel());		
 			//valuta = model.vratiValutu(menjacnica.getTable().getSelectedRow());
-			obrisiKurs = new ObrisiKursGUI(menjacnica,model.vratiValutu(menjacnica.getTable().getSelectedRow()));
+			obrisiKurs = new ObrisiKursGUI(model.vratiValutu(menjacnica.getTable().getSelectedRow()));
 			obrisiKurs.setVisible(true);
 			obrisiKurs.setLocationRelativeTo(null);
 			prikaziValutu();
@@ -111,7 +111,7 @@ public class GUIKontroler {
 		if (menjacnica.getTable().getSelectedRow() != -1) {
 			MenjacnicaTableModel model = (MenjacnicaTableModel)(menjacnica.getTable().getModel());
 			//valuta = model.vratiValutu(menjacnica.getTable().getSelectedRow());
-			izvrsiZamenu = new IzvrsiZamenuGUI(menjacnica,
+			izvrsiZamenu = new IzvrsiZamenuGUI(
 					model.vratiValutu(menjacnica.getTable().getSelectedRow()));
 			izvrsiZamenu.setVisible(true);
 			izvrsiZamenu.setLocationRelativeTo(null);
